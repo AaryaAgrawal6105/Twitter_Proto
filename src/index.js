@@ -1,7 +1,6 @@
 const express = require('express');
 const connect =require('./config/database.js')
 const app = express();
-const Comment = require('./models/comment.js')
 const TweetRepository = require('./repository/tweet-repository.js')
 
 app.listen(3000 ,async ()=>{
@@ -9,8 +8,6 @@ app.listen(3000 ,async ()=>{
     await connect();
     console.log('Mongo Db connected');
     const tweetRepo = new TweetRepository();
-    const tweet = await tweetRepo.getwithComments('67ee149244d25c3ce1135e6b');  
-    console.log(tweet);
-
-
+    await tweetRepo.create({content : "this is the tweet with a hook"}) 
+    // console.log(t);
 })
