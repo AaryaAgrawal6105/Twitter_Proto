@@ -9,5 +9,5 @@ app.listen(3000 ,async ()=>{
     console.log('Mongo Db connected');
     const tweetRepo = new TweetRepository();
     await tweetRepo.create({content : "this is the tweet with a hook"}) 
-    // console.log(t);
+   
 })
