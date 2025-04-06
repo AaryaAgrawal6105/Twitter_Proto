@@ -1,13 +1,16 @@
 const express = require('express');
-const connect =require('./config/database.js')
+const connect = require('./config/database.js');
 const app = express();
-const TweetRepository = require('./repository/tweet-repository.js')
 
-app.listen(3000 ,async ()=>{
+const { HashtagRepository } = require('./repository/index.js');
+const TweetService = require('./services/tweet-service.js')
+
+app.listen(3000, async () => {
     console.log('App is listening on port 3000');
     await connect();
-    console.log('Mongo Db connected');
-    const tweetRepo = new TweetRepository();
-    await tweetRepo.create({content : "this is the tweet with a hook"}) 
-   
-})
+    console.log('Mongo DB connected');
+
+    let service  = new TweetService();
+    const tweet = await service.create({content : 'This is after #processing really #excited #Trend #IPL #Cricket'});
+    console.log(tweet);
+});
