@@ -1,16 +1,16 @@
-const express = require('express');
-const connect = require('./config/database.js');
+import express from 'express';
+import connect from './config/database.js';
+import { HashtagRepository } from './repository/index.js';
+import TweetService from './services/tweet-service.js';
+import apiRoutes from './routes/index.js'
+import bodyParser from 'body-parser';
 const app = express();
-
-const { HashtagRepository } = require('./repository/index.js');
-const TweetService = require('./services/tweet-service.js')
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}))
+app.use('/api' , apiRoutes);
 app.listen(3000, async () => {
     console.log('App is listening on port 3000');
     await connect();
     console.log('Mongo DB connected');
-
-    let service  = new TweetService();
-    const tweet = await service.create({content : 'This is after #processing really #excited #Trend #IPL #Cricket'});
-    console.log(tweet);
+    
 });
