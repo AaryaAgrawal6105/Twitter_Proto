@@ -3,7 +3,7 @@ import {CommentService} from '../services/index.js'
 const commentService = new CommentService();
 export const create = async(req,res)=>{
     try {
-        const response = await commentService.createComment(req.query.modelId, req.query.modelType,req.body.userId,req.body.content);
+        const response = await commentService.createComment(req.query.modelId, req.query.modelType,req.user.id,req.body.content);
         return res.status(201).json({
             data:response ,
             message : 'Successfully created a comment',
