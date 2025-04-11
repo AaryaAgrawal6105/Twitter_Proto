@@ -26,3 +26,25 @@ try {
 }
 
 }
+
+export const login = async(req,res)=>{
+    try {
+        const token = await userService.signin(req.body);
+        
+       
+       
+        return res.status(200).json({
+            message:'user is logged in successfully',
+                success :true,
+                data:token,
+                err:{}
+        })
+    } catch (error) {
+        return res.status(500).json({
+            data:{},
+            err:error,
+            success:false,
+            message:'failed to log in a user'
+        })
+    }
+}
